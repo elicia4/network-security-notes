@@ -1,0 +1,120 @@
+What exactly does it mean to secure a network? What targets do we have?
+
+- Confidentiality
+You don't want people to access your email, your file server, your printer etc.
+If an attacker manages to capture your traffic, they should not be able to read
+it.
+
+- Integrity
+You have to make sure your data has not been modified.
+
+- Availability
+You obviously want to make your work. DoS (Denial of Service) attacks prevent 
+your system from working by flooding your system with so much traffic that 
+system is not able to do its regular job because it's dealing with that
+onslaught of junk data.
+
+Let's focus on confidentiality. One way to have confidentiality is through a
+variety of security appliances that you can use on your network, but in 
+addition to that, on your Cisco routers for example, you can use ACLs (Access
+Control Lists), and also you can encrypt your traffic (and you should). When
+somebody says that something is encrypted, it means that the contents of that
+something is jumbled up according to some mathematical algorithm, and that algo
+will use something called a key, it might be 128 bits in length, might be 256
+bits in length, it might be varying bits in length. 
+
+Let's take a look at various security appliances. One of them is a firewall.
+A firewall generally stands guard at the perimeter of your network as you go 
+out to the internet or you go out to a wide area network, or maybe even to a
+different area of your own network. A firewall is basically a set of rules to
+say what traffic is permitted to come in, what traffic is permitted to go out.
+
+There are various types of firewalls, one of them might me running on your 
+system right now. It's called a host-based, or software-based firewall. It is
+available on the majority of modern operating systems. If somebody tries to get
+to your computer specifically, you can set up some firewall rules to allow or 
+deny that kind of activity.
+
+There is also a rudimentary type of firewall called a packet filtering. We are
+talking about and ACL really, meaning that some ip address are allowed to go 
+in, some of them are allowed to go out, some of them are forbidden to go in and
+so on. For example, imagine you set up a router at the edge of your network 
+going out to the internet. We set up an ACL to block traffic from coming in to
+us. You send a web page request, but it's blocked on the side of the firewall,
+so you don't get two way communication. Sitting at the boundary of your network
+is not a good place to this type of firewall. (this is confusing to me)
+
+What you might use instead is a stateful firewall. We remember the state of a
+session. You're inside, you try to go outside to the internet somewhere and 
+when you go into the stateful firewall, it's gonna make a note of this. It's
+gonna register your ip address on the inside of the network, it's gonna see 
+that you're going to this other ip address at the other side of the network, 
+that you're using this source and this destination port number and it's going
+to remember that. Then, when that web server returns that web page, the 
+firewall is going to realize that that traffic belongs to your sessions and 
+allow it.
+
+In recent years, there is a newer type of firewall, it's called a Next
+Generation Firewall (NGFW/Layer 7 Firewall). Here, it can examine more that 
+just IP information, it can get into the Layer 7 information. It can understand
+how different protocol work together. For example, when setting up a Cisco IP
+phone, you might be using a protocol called SIP (session initiation protocol) 
+to set up the session, to make the phone call, and then to start streaming your
+voice that SIP protocol will let you start streaming your voice and that's 
+gonna be done with the RTP protocol (Real-time Transport Protocol). The NGFW
+will realize that and allow both the SIP and RTP protocols, since RTP is part 
+of the same session. So, with NGFW you can look into protocol specific things 
+in your streams to permit or deny traffic based on them.
+
+Let's take a look at DMZs (Demilitarized Zones). You can divide your network
+into security zones. Imagine you have a connection that goes out to the 
+internet, a firewall port that is pointed out to the internet, you have
+another section of your network that contains residents, and another to 
+teachers. We want to prevent somebody who is sitting in their dorm room from 
+getting into a faculty computer, you want to put that in a different security 
+zone, a demitilitarized zone. So, what you can do is set up multiple firewall
+ports going to different places, one to the internet, one to the faculty 
+members, one to the residents halls inside the university. You can limit some
+of your servers to a DMZ that has access to the internet, for example a Web
+Server and an e-Mail server, and some of them to have no access to the internet
+at all. That will also allow you to separate a local network, that shouldn't
+have access to the internet, from the internet-connected part of the network.
+
+Another appliance you might have is an IDS sensor, an Intrusion Detection 
+System Sensor. Imagine you have a multilayer switch with an IDS sensor 
+connected to it. When a packet coming in from the internet hits that switch, 
+the switch is making a copy of it. The original is sent to the destination, and
+the copy is sent to the IDS sensor. So the IDS sensor monitors traffic flowing
+through that switch and it's monitoring it for malitious patters. There is a
+signature database that the IDS sensor has and if it sees there's potentially
+malicious traffic coming in, it can alert us to that. Some IDS sensors can
+notify firewalls about the attack, tell it about the source of attack etc. But
+still, the malicious packet did reach the client. There are attacks called
+atomic attacks that can deal damage to a system with just one or two packets.
+In that case, the IDS sensor might realize that the system was attacked but it
+the attack wasn't prevented. To deal with this case, we might need to use an 
+IPS sensor, Intrusion Prevention System sensor. 
+
+IDS sensors reacts to copies of the received traffic, but the Intrusion 
+Prevention System sensor sits in-line with the traffic. It compares traffic to
+a signature database and can potentially drop it. It can be appliance or host
+based.
+
+In summary, Firewalls, IPS, IDS sensors are some of the appliances we might 
+use.
+
+An ACLs, or an Access Control List, is a list of rules. Each rule is called an
+ACE (Access Control Entry) and it gives permissions on whether to permit or
+deny traffic. The ACEs can be applied to inbound or outbound traffic. Think 
+about the direction the traffic travels. You can also match traffic. For 
+example, an ACL could be configured to only allow traffic from a specific IP
+address range or a specific port. If traffic matches the defined criteria, it
+is allowed to pass through the ACL. Otherwise, the traffic is blocked. ACLs
+are processed top-down. The order of the rules matters. If a packet matches a 
+rule at the top of the list, the subsequent rules will not be evaluated. This 
+means that it's important to order the rules correctly to achieve the desired 
+traffic filtering behavior. Let's say we go through the entire list and we 
+don't have a match. We didn't have a single entry that matched the packet. 
+There is an implicit deny of all coming traffic at the bottom. There are 
+subtypes of ACLs, there are numbered ACLs, named ACLs, standard and extended
+ACLs. 

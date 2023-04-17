@@ -1,0 +1,8 @@
+One of the most in-demand certifications in 2022 is Certified Ethical Hacker
+(CEH), it stands at #5, it beats out Cisco's CCIE and CCNP. There is a huge
+demand for cybersecurity workers, hundreds of thousands of positions are open.
+
+The demand right now is higher than it's ever been. :)
+
+If you are not employed as a cybersecurity specialist, it is still vital to at
+the very least know the basics of netsec.
