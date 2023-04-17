@@ -1,0 +1,45 @@
+1. The Demand for Network Security Professionals
+2. Security's 3 Big Goals
+	- Security Goals
+	- Confidentiality
+		> Firewalls
+		> ACLs
+		> Encryption
+	- Integrity
+	- Availability
+3. Common Network Attacks and Defenses
+	- DoS and DDoS Attacks
+	- DoS and DDoS Defenses
+		> On-Path Attacks
+		> On-Path Defenses
+		> Demo
+			= Port Security
+			= DHCP Snooping
+			= Dynamic ARP Inspection (DAI)
+	- Other Common Attacks
+	- Common Defenses
+	- User Authentication
+4. Wireless Security
+	- Wireless Security Issues
+	- Wireless Security Defenses
+5. Session Hijacking
+	- Application Level Hijacking
+	- Network Level Hijacking
+	- Session Hijacking Defenses
+6. Physical Security
+	- Detecting Physical Security Breaches
+	- Preventing Physical Security Breaches
+	- Equipment Disposal Best Practices
+7.  IoT and Cloud Security
+	- Mirai Malware Example
+	- IoT Best Practices
+	- Cloud Security Options
+		> TLS
+		> VPN
+		> Private WAN
+		> CASB
+8. Virtual Private Networks (VPNs)
+	- Remote Access and Site-to-Site VPNs
+	- DEMO: GRE over IPsec Tunnel
+	- Dynamic Multipoint VPNs (DMVPNs)
+
