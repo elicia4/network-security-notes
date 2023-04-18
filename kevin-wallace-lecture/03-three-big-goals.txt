@@ -117,4 +117,32 @@ traffic filtering behavior. Let's say we go through the entire list and we
 don't have a match. We didn't have a single entry that matched the packet. 
 There is an implicit deny of all coming traffic at the bottom. There are 
 subtypes of ACLs, there are numbered ACLs, named ACLs, standard and extended
-ACLs. 
+ACLs. Numbers in the range of 1 through 199 are used for standard ACLs. 
+Standard ACLs can only filter traffic based on the source IP address of the
+packets being examined, and not on the destination IP address, port numbers,
+or other packet attributes, so Standard ACLs are not as granular. Here are
+some commands:
+
+	access-list 2 permit host 10.1.1.102
+
+This will add a rule to list#2, it will allow traffic from 10.1.1.102, the host
+keyword  indicates that the ACL rule applies to only a single host with the IP
+address 10.1.1.102. This is in contrast to using a subnet mask, which would
+allow the rule to match any IP address within the specified subnet. For
+example, if the command were "access-list 2 permit 10.1.1.0 0.0.0.255", it
+would allow traffic from any host within the 10.1.1.0/24 subnet. To add these
+rules to an interface, first choose the interface, and then apply the rules:
+
+	interface g0/1
+	ip access-group 2 in
+
+Extended ACL example. It allows us to configure, for instance, protocols. Let's
+imagine that a pc should be able to connect to a server via TFTP(69). Another
+PC should be able to connect to another server via FTP. The commands are:
+
+	access list 101 permit udp host 10.1.1.101 host 192.168.1.2 eq 69
+	access list 101 permit tcp host 10.1.1.102 host 192.168.1.3 eq ftp
+	interface gig 0/1
+	ip access group 101 in
+
+UDP is used for UDP based protocols, TCP for TCP-based protocols. 
