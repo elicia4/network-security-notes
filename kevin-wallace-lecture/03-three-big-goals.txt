@@ -35,14 +35,14 @@ available on the majority of modern operating systems. If somebody tries to get
 to your computer specifically, you can set up some firewall rules to allow or 
 deny that kind of activity.
 
-There is also a rudimentary type of firewall called a packet filtering. We are
-talking about and ACL really, meaning that some ip address are allowed to go 
-in, some of them are allowed to go out, some of them are forbidden to go in and
-so on. For example, imagine you set up a router at the edge of your network 
-going out to the internet. We set up an ACL to block traffic from coming in to
-us. You send a web page request, but it's blocked on the side of the firewall,
-so you don't get two way communication. Sitting at the boundary of your network
-is not a good place to this type of firewall. (this is confusing to me)
+There is also a rudimentary type of firewall called a packet filtering 
+firewall. We are talking about an ACL really, meaning that some ip address are
+allowed to go in, some of them are allowed to go out, some of them are
+forbidden to go in and so on. For example, imagine you set up a router at the
+edge of your network going out to the internet. We set up an ACL to block
+traffic from coming in to us. You send a web page request, but it's blocked on
+the side of the firewall, so you don't get two way communication. Sitting at
+the boundary of your network is not a good place to this type of firewall.
 
 What you might use instead is a stateful firewall. We remember the state of a
 session. You're inside, you try to go outside to the internet somewhere and 
@@ -146,3 +146,69 @@ PC should be able to connect to another server via FTP. The commands are:
 	ip access group 101 in
 
 UDP is used for UDP based protocols, TCP for TCP-based protocols. 
+
+##########
+ENCRYPTION
+##########
+
+Encryption is going to scrambe our data up, such that when somebody intercepts
+it they're not going to be able to read it. There are two types of encryption:
+
+	- Symmetric
+		> DES - very old, not used
+		> 3DES - a lot better than DES
+		> AES - best option, best symmetric encryption algo
+	- Asymmetric
+		> RSA 
+
+Symmetric encryption: data is encrypted with the same key.
+Asymmetric: two keys, one public and one private. Data encrypted with public
+can only be decrypted with private, and vice versa. 
+Asymmetric encryption is a lot slower than symmetric.
+
+Certificate authority: imagine you establish a connection with some website.
+How do you know it is actually them and some third party? There is a thing in
+between you and the website server called a certificate authority. It encrypts
+information about the website you're interacting with, that website's name etc.
+with their private key, once you receive it, you decrypt it with the CA's 
+public key and realize that it is indeed the website you're interacting with.
+Then you send data encrypted with the website's public key to the website, and
+then the website decrypts it with its private key.
+
+#########
+INTEGRITY
+#########
+
+You have to make sure that your data has not been modified or mixed up.
+Hashing and encryption are different. If you have a big file encrypted, you're
+gonna get a big file back. But if you run a hashing algo, like MD5, it's gonna
+generate a 128-bit result. This of that as a fingerprint. If you take the 
+fingerprint, send the data to somebody, they run the same algo, and get the 
+same fingerprint, that means that the data was not modified in transit. It 
+doesn't matter how big the size of the encrypted data is, the algo will always
+result in a 128-bit string. Better than MD5 is SHA-1 (Secure Hash Algorithm). 
+But what is somebody intercepts the string? To overcome that limitation HMAC is
+used. HMAC stand for hash-based message authentication code. That adds a secret
+key to this. Whoever intercepts it will not be able to generate a believable 
+hash digest (?). You will be able to detect that when receiving the string.
+
+############
+AVAILABILITY
+############
+
+You want your systems to be available at ALL times. The golden standard for 
+availability is five nines (99.999%), it means that your service is up 99.999%
+of the time. If you translate that to a year, it's about 5 minutes. It's really
+hard to achieve and is very expensive.
+
+Sample Threats:
+- Improperly formatted data
+- DoS
+- DDoS
+
+Prevention:
+- OS Patches
+- IDS, IPS, and Firewall Appliances
+
+By giving overlapping layers of protection, you're completely protected. You
+want to have overlapping layers of network security.
