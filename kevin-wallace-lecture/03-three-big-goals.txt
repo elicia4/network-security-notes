@@ -9,7 +9,7 @@ it.
 You have to make sure your data has not been modified.
 
 - Availability
-You obviously want to make your work. DoS (Denial of Service) attacks prevent 
+You obviously want your system to work. DoS (Denial of Service) attacks prevent 
 your system from working by flooding your system with so much traffic that 
 system is not able to do its regular job because it's dealing with that
 onslaught of junk data.
@@ -103,7 +103,7 @@ based.
 In summary, Firewalls, IPS, IDS sensors are some of the appliances we might 
 use.
 
-An ACLs, or an Access Control List, is a list of rules. Each rule is called an
+An ACL, or an Access Control List, is a list of rules. Each rule is called an
 ACE (Access Control Entry) and it gives permissions on whether to permit or
 deny traffic. The ACEs can be applied to inbound or outbound traffic. Think 
 about the direction the traffic travels. You can also match traffic. For 
